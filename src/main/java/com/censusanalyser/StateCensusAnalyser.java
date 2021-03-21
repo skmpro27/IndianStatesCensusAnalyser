@@ -11,25 +11,30 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class StateCensusAnalyser {
+
     public int loadNumberOfRecord(String indianCensusFile) throws CensusAnalyserException {
         int numRecords = 0;
         try {
             Reader reader = Files.newBufferedReader(Paths.get(indianCensusFile));
-            CsvToBeanBuilder<IndianCensusCSV> csvCsvToBeanBuilder = new CsvToBeanBuilder<>(reader);
-            csvCsvToBeanBuilder.withType(IndianCensusCSV.class);
+            CsvToBeanBuilder<IndianCensus> csvCsvToBeanBuilder = new CsvToBeanBuilder<>(reader);
+            csvCsvToBeanBuilder.withType(IndianCensus.class);
             csvCsvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             csvCsvToBeanBuilder.withSeparator(',');
-            CsvToBean<IndianCensusCSV> csvToBean = csvCsvToBeanBuilder.build();
+            CsvToBean<IndianCensus> csvToBean = csvCsvToBeanBuilder.build();
 
-            List<IndianCensusCSV> censusCSVS = csvToBean.parse();
+            List<IndianCensus> censusCSVS = csvToBean.parse();
             numRecords = censusCSVS.size();
-            return numRecords;
         } catch (NoSuchFileException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.WRONG_FILE_PATH);
+        } catch (RuntimeException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.WRONG_TYPE);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+
         }
-        return 0;
+        return numRecords;
     }
 }

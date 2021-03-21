@@ -22,11 +22,20 @@ public class IndianCensusAnalyserTest {
     }
 
     @Test
-    public void givenRecordWrongFileLoadReturnCustomException() {
+    public void givenRecordWrongFileLoadThrowCustomException() {
         try {
             censusAnalyser.loadNumberOfRecord(INDIAN_CENSUS_WRONG_FILE);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_FILE_PATH, e.type);
+        }
+    }
+
+    @Test
+    public void givenRecordWrongTypeThrowCustomException() {
+        try {
+            censusAnalyser.loadNumberOfRecord(INDIAN_CENSUS_FILE);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_TYPE, e.type);
         }
     }
 }
