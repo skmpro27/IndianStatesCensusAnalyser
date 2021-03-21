@@ -3,6 +3,7 @@ package com.censusanalyser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class IndianCensusAnalyserTest {
     private static final String INDIAN_CENSUS_FILE = "C:\\Users\\Manish\\Development\\Assignment\\Day29\\IndianStatesCensusAnalyser\\src\\main\\resources\\IndiaStateCensusData.csv";
@@ -31,11 +32,11 @@ public class IndianCensusAnalyserTest {
     }
 
     @Test
-    public void givenRecordWrongTypeThrowCustomException() {
+    public void givenRecordWrongDelimiterThrowCustomException() {
         try {
             censusAnalyser.loadNumberOfRecord(INDIAN_CENSUS_FILE);
         } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_TYPE, e.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, e.type);
         }
     }
 }
