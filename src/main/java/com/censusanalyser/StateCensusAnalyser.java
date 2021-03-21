@@ -12,16 +12,17 @@ import java.util.List;
 
 public class StateCensusAnalyser {
     private static final char DELIMITER = ',';
-    private static final char WRONG_DELIMITER = ':';
+    private static final Class<IndianCensusCSV> TYPE = IndianCensusCSV.class;
 
-    char delimiter = WRONG_DELIMITER;
+    char delimiter = DELIMITER;
+    Class<IndianCensusCSV> classType = TYPE;
 
     public int loadNumberOfRecord(String indianCensusFile) throws CensusAnalyserException {
         int numRecords = 0;
         try {
             Reader reader = Files.newBufferedReader(Paths.get(indianCensusFile));
             CsvToBeanBuilder<IndianCensusCSV> csvCsvToBeanBuilder = new CsvToBeanBuilder<>(reader);
-            csvCsvToBeanBuilder.withType(IndianCensusCSV.class);
+            csvCsvToBeanBuilder.withType(classType);
             csvCsvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
 
             csvCsvToBeanBuilder.withSeparator(delimiter);
@@ -36,9 +37,12 @@ public class StateCensusAnalyser {
             if (delimiter != DELIMITER)
                 throw new CensusAnalyserException(e.getMessage(),
                         CensusAnalyserException.ExceptionType.WRONG_DELIMITER);
+            if (classType != TYPE)
+                throw new CensusAnalyserException(e.getMessage(),
+                        CensusAnalyserException.ExceptionType.WRONG_TYPE);
 
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.WRONG_TYPE);
+            throw  new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.WRONG_HEADER);
         } catch (IOException e) {
             e.printStackTrace();
         }

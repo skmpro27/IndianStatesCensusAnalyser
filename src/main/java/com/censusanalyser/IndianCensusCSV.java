@@ -3,16 +3,16 @@ package com.censusanalyser;
 import com.opencsv.bean.CsvBindByName;
 
 public class IndianCensusCSV {
-    @CsvBindByName(column = "State", required = true)
+    @CsvBindByName(column = "state", required = true)
     public String state;
 
-    @CsvBindByName(column = "Population", required = true)
+    @CsvBindByName(column = "population", required = true)
     public String population;
 
-    @CsvBindByName(column = "AreaInSqKm", required = true)
+    @CsvBindByName(column = "areaInSqKm", required = true)
     public String areaInSqKm;
 
-    @CsvBindByName(column = "DensityPerSqKm", required = true)
+    @CsvBindByName(column = "densityPerSqKm", required = true)
     public String densityPerSqKm;
 
     @Override

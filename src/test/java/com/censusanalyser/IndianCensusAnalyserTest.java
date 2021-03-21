@@ -32,11 +32,11 @@ public class IndianCensusAnalyserTest {
     }
 
     @Test
-    public void givenRecordWrongDelimiterThrowCustomException() {
+    public void givenRecordWrongHeaderThrowCustomException() {
         try {
             censusAnalyser.loadNumberOfRecord(INDIAN_CENSUS_FILE);
         } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, e.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_HEADER, e.type);
         }
     }
 }
