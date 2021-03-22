@@ -12,6 +12,12 @@ public enum CensusCSV {
         public Class censusCSV() {
             return IndiaStateCodeCSV.class;
         }
+    },
+    WRONG_CENSUS_TYPE {
+        @Override
+        public Class censusCSV() {
+            return IndianCensus.class;
+        }
     };
     public abstract Class censusCSV();
 }

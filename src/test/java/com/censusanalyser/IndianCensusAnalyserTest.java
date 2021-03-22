@@ -54,4 +54,13 @@ public class IndianCensusAnalyserTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_FILE_PATH, e.type);
         }
     }
+
+    @Test
+    public void givenStateRecordWrongTypeThrowCustomException() {
+        try {
+            censusAnalyser.loadNumberOfRecord(STATE_CODE_FILE, CensusCSV.WRONG_CENSUS_TYPE);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_TYPE, e.type);
+        }
+    }
 }
